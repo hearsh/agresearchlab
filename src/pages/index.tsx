@@ -1,11 +1,60 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import { Link, Button, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
+import { DotNav } from '@/components/DotNav'
+import Grid from '@mui/material/Grid'
+import ImageList from '@mui/material/ImageList'
+import ImageListItem from '@mui/material/ImageListItem'
+import TitleBarImageList from '@/components/TitleBarImageList/TitleBarImageList'
+import BasicTimeline from '@/components/BasicTimeline/BasicTimeline'
+import HomePageBanner from '@/components/HomePageBanner/HomePageBanner'
+import { createTheme, ThemeProvider, Typography } from '@mui/material'
+import NavBar from '@/components/NavBar/NavBar'
+import { useState } from 'react'
+import { sectionNames } from '@/constants'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const [pageName, setPageName] = useState('Home')
+  const ImageData = [{
+    image: '/grid01.jpg',
+    title: 'Image 1',
+  }, {
+    image: '/text01.jpg',
+    title: 'Image 1',
+  }, {
+    image: '/grid02.jpg',
+    title: 'Image 1',
+  }, {
+    image: '/text02.jpg',
+    title: 'Image 1',
+  }, {
+    image: '/grid03.jpg',
+    title: 'Image 1',
+  }, {
+    image: '/text03.jpg',
+    title: 'Image 1',
+  }];
+  const theme = createTheme({
+    typography: {
+      fontFamily: [
+        '-apple-system',
+        'BlinkMacSystemFont',
+        '"Segoe UI"',
+        'Roboto',
+        '"Helvetica Neue"',
+        'Arial',
+        'sans-serif',
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+      ].join(','),
+      fontSize: 16,
+    },
+  });
   return (
     <>
       <Head>
@@ -15,108 +64,180 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>src/pages/index.tsx</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
+        <ThemeProvider theme={theme}>
+        <DotNav
+          onClick={setPageName}
+        />
+        <NavBar
+          pageName={pageName}
+        />
+        <Element
+          name={sectionNames.banner}
+          className='page-section'
+        >
+          <HomePageBanner />
+        </Element>
+        <div>
+          <Typography
+            variant="h3"
+            className='change-heading'
+          >
+          WE NEED TO CHANGE THIS
+          </Typography>
+        </div>
+        <Element
+          name={sectionNames.science}
+          className='page-section'
+        >
+          <Grid
+            container
+            spacing={2}
+            justifyContent="center"
+            alignItems="center"
+            className="page-section"
+          >
+            <Grid
+              item
+              xs={6}
             >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
-          </div>
-        </div>
-
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
-          </div>
-        </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
+              <Typography
+                className='science-text'
+                variant='h3'
+              >
+                THE SCIENCE BEHIND AGING
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              xs={6}
+            >
+              <Typography
+                className='science-helper-text'
+                variant='body1'
+              >
+              Majority of individuals over the age of 65 years suffer from at least two chronic degenerative diseases- neurodegeneration, cardiovascular disease, diabetes, cancer etc. These chronic diseases of the elderly consume an increasingly large fraction of our health care costs and rob individuals of their independence and quality of life. The Gurkar Lab is interested in defining the molecular mechanisms that drive aging in response to DNA damage, which accumulates in all of us over time.
+              </Typography>
+            </Grid>
+          </Grid> 
+        </Element>
+        <Element
+          name={sectionNames.projects}
+          className='page-section'
+        >
+          <Grid
+            container
+            spacing={10}
+            justifyContent="center"
+            alignItems="center"
+            className="page-section"
           >
-            <h2 className={inter.className}>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
+            <Grid
+              item
+              xs={6}
+            >
+              <ImageList
+                sx={{ width: 600, height: 500 }}
+                cols={3}
+                rowHeight={250}
+                className="image-list"
+              >
+                {ImageData.map((item) => (
+                  <ImageListItem key={item.image}>
+                    <Image
+                      src={`${item.image}?w=164&h=164&fit=crop&auto=format`}
+                      alt={item.title}
+                      loading="lazy"
+                      height={250}
+                      width={200}
+                    />
+                  </ImageListItem>
+                ))}
+              </ImageList>
+            </Grid>
+            <Grid
+              item
+              xs={6}
+            >
+              <div
+                className="dna-text-container"
+              >
+                <Typography
+                  className='dna-heading'
+                  variant='h4'
+                >
+                  DNA damage interactome hallmarks of aging
+                </Typography>
+                <Typography>
+                We have recently found that nuclear DNA damage, that accumulates with age, reprograms cellular metabolism. Interestingly, this overhaul of metabolism generates a central metabolite, Acetyl-CoA.  Acetyl-CoA, in turn promotes histone hyperacetylation and drives expression of immune-related genes. We are now interested in exploring how this process can be intervened to promote healthy aging.
+                </Typography>
+                <Typography
+                  className='paper-styles'
+                  variant='h5'
+                >
+                Papers: Science Advances<br/>
+                FOXO3A<br/>
+                Lipids in cellular senescence<br/>
+                MAD paper<br/>
+                Collabs: Kagan, Bayir,
+                </Typography>
+                <Typography
+                  className='paper-text-color'
+                  variant='h5'
+                >
+                  DNA Damage & Heart Disease
+                </Typography>
+                <Typography
+                  className='paper-text-color'
+                  variant='body1'
+                >
+                  Genotoxic Stress Response in Post-Miotic Cells
+                </Typography>
+                <Typography
+                  className='paper-text-color'
+                  variant='h5'
+                >
+                  Detecting Biological Age
+                </Typography>
+              </div>
+            </Grid>
+          </Grid>
+        </Element>
+        <Element
+          name={sectionNames.team}
+          className='page-section'
+        >
+          <Grid
+            container
+            spacing={10}
+            justifyContent="center"
+            alignItems="center"
+            className="page-section"
           >
-            <h2 className={inter.className}>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
-        </div>
+            <Grid
+              item
+              xs={6}
+            >
+              <TitleBarImageList />
+            </Grid>
+            <Grid
+              item
+              xs={6}
+            >
+              <Typography
+                variant='body1'
+              >
+                Aditi Gurkar<br/>
+                Austin Sims<br/>
+                Megan Monroe<br/>
+                Mathan Sivapar<br/>
+                Suhao Han<br/>
+                Anthony Aceto<br/>
+                Samantha Cooper<br/>
+              </Typography>
+            </Grid>
+          </Grid>
+        </Element>
+        </ThemeProvider>
       </main>
     </>
   )

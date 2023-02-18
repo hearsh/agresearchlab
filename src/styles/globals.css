@@ -6,8 +6,7 @@
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
 
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --gray-color: rgba(125, 125, 125, 1);
 
   --primary-glow: conic-gradient(
     from 180deg at 50% 50%,
@@ -40,11 +39,9 @@
   --card-border-rgb: 131, 134, 135;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
 
     --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
     --secondary-glow: linear-gradient(
@@ -87,12 +84,6 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
 }
 
 a {
@@ -100,8 +91,63 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
+.page-section {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin-top: 50px;
+}
+
+.home-page-banner {
+  margin-top: 50px;
+}
+.home-page-image {
+  justify-content: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.science-text {
+  max-width: 350px;
+  margin: auto;
+  text-align: center;
+}
+.science-helper-text {
+  max-width: 400px;
+  margin: auto;
+  text-align: justify;
+}
+.home-page-banner-text {
+  text-align: center;
+  margin-top: 30px;
+}
+.image-list {
+  margin: auto;
+}
+.dna-text-container {
+  text-align: center;
+}
+.dna-heading {
+  margin-bottom: 15px;
+}
+.paper-styles {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.paper-text-color {
+  color: var(--gray-color);
+}
+.change-heading {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.single-dot-nav {
+  cursor: pointer;
+}
+
+
+@media (prefers-color-scheme: light) {
   html {
-    color-scheme: dark;
+    color-scheme: light;
   }
 }
