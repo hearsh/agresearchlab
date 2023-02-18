@@ -14,7 +14,6 @@ const HomePageBanner = () => {
       <Grid
         item
         xs={8}
-        direction="row"
       >
         <Image
           src="/aging.jpg"
